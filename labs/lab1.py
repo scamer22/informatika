@@ -12,7 +12,7 @@ b = z**(1/2) + y**2 + log(x)
 
 print(a, b)
 
-№задание 2
+#задание 2
 #from math import *
 
 a = 1

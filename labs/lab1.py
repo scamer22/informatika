@@ -32,3 +32,12 @@ def f(x):
 print(f(x))
 
 #Задание 4
+from math import *
+
+r = int(input())
+h = int(input())
+
+v = 1/3 * pi*(r ** 2) * h
+l = r**2 + h**2
+
+print(l)

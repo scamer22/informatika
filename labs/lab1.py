@@ -41,3 +41,14 @@ v = 1/3 * pi*(r ** 2) * h
 l = r**2 + h**2
 
 print(l)
+
+#Задание 5
+v1 = float(input())
+v2 = float(input())
+h = float(input())
+
+time = h / (v1 - v2)
+distance = v1 * time
+
+print(time)
+print(distance)

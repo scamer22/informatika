@@ -149,3 +149,52 @@ def task8():
     result = calculate_series(epsilon_value, x_value)
     print(f"Сумма членов ряда с точностью до {epsilon_value}: {result}")
 task8()
+
+# 9 Exem
+def task9():
+    def task9_1():
+        result = 0
+        for i in range(1, 9):
+            for j in range(1, i+1):
+                result += j**2
+            return result
+    def task9_2():
+        result = 1
+        for i in range(1, 9):
+            for j in range(i, 2*i+1):
+                result += j**3 + i**2
+            return result
+    def task9_3():
+        result = 1
+        for i in range(1,9):
+            inner_sum = 0
+            for j in range(1, i):
+                inner_sum += sum((j**2 + i*k) for k in range(i+j, 3))
+                result *= inner_sum
+            return result
+    print(f'1){task9_1()} 2) {task9_2()} 3){task9_3()}')
+task9()
+
+# 10 Exem
+import math
+def task10():
+    def sinh(x, epsilon):
+        shx = x
+        term = x
+        i = 1
+
+        while abs(term) > epsilon:
+            term *= x ** 2 / ((2 * i) * (2 * i + 1))
+            shx += term
+            i += 1
+
+        return shx
+
+
+    x = 30  # аргумент функции sh x
+    epsilon = 1e-6  # заданная точность
+
+    result = sinh(x, epsilon)
+    print("sh", x, "=", result)
+task10()
+

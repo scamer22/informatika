@@ -58,36 +58,27 @@ task6()
 
 # 2 Задание 
 def task2():
-    def number_in_new_numeral_system(number, base):
-        if base < 2 or base > 16:  # Проверяем, что выбранное основание находится в допустимом диапазоне
-            return "Ошибка: Недопустимое основание системы счисления"
-
-        if number == 0:
-            digits = "0123456789ABCDEF"  # Цифры, используемые в различных системах счисления
-
-            result = ""
-            negative = False
-        if number < 0:  # Проверяем, является ли число отрицательным
-            negative = True
-        number = abs(number)
-
-        while number > 0:
-            remainder = number % base  # Остаток от деления числа на основание новой системы счисления
-        result = digits[remainder] + result
-        number = number // base  # Целая часть от деления числа на основание новой системы счисления
-
-        if negative:
-            result = "-" + result  # Если число было отрицательным, то добавляем знак "-" к результату
-
-        return result
-
-    # Пример использования функции
-    number = int(input("Введите число в десятичной системе счисления: "))
-    base = int(input("Введите основание новой системы счисления: "))
-    result = number_in_new_numeral_system(number, base)
-    print(f"Число {number} в системе счисления с основанием {base} равно {result}")
-
-    return "0"  # Если число равно нулю, то возвращаем строку "0"
+    import numpy as np
+    import matplotlib.pyplot as plt
+    
+    def f(x):
+        if x >= np.pi:
+            return np.cos(x) + np.sin(x)
+        else:
+            return np.cos(x) - np.sin(x)
+    
+    a = 0  # начальное значение диапазона
+    b = 2*np.pi  # конечное значение диапазона
+    n = 100  # количество точек
+    
+    x = np.linspace(a, b, n)  # генерируем равномерно распределенные точки в диапазоне [a, b]
+    y = np.vectorize(f)(x)  # вычисляем значения функции для каждой точки
+    
+    plt.plot(x, y)  # строим график
+    plt.xlabel('x')
+    plt.ylabel('f(x)')
+    plt.title('График функции f(x)')
+    plt.grid(True)
 task2()
 
 # 1 Задание 

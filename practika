@@ -11,9 +11,9 @@ def is_positive_definite(A):
 def cholesky_solve(A, b):
     n = A.shape[0]
     if b.size != n:
-        raise ValueError("Размер вектора b должен соответствовать размеру матрицы A.")
+        raise ValueError("Размер вектора b должен соответствовать размеру матрицы A")
     if A.shape[1] != n or not is_positive_definite(A):
-        raise ValueError("Матрица A должна быть симметричной и положительно определенной.")
+        raise ValueError("Матрица A должна быть симметричной и положительно определенной")
     L = np.zeros((n, n))
     for i in range(n):
         for j in range(i+1):
@@ -41,3 +41,34 @@ try:
     print("Решение системы:", x)
 except ValueError as e:
     print(e)
+
+# 2 exem
+import numpy as np
+
+def minimal_residual_method(A, b, tol=1e-10, max_iterations=1000):
+    if A.shape[0] != A.shape[1] or A.shape[0] != b.shape[0]:
+        raise ValueError("Матрица A должна быть квадратной и размер вектора b должен соответствовать размеру матрицы A")
+    if np.linalg.det(A) == 0:
+        raise ValueError("Матрица A вырождена и не имеет обратной")
+    x = np.zeros_like(b)
+    r = b - np.dot(A, x)
+    if np.linalg.norm(r) < tol:
+        return x
+    for iteration in range(max_iterations):
+        Ar = np.dot(A, r)
+        alpha = np.dot(r, Ar) / np.dot(Ar, Ar)
+        x += alpha * r
+        r = b - np.dot(A, x)
+        if np.linalg.norm(r) < tol:
+            return x
+    raise ValueError("Метод не сходится после максимального количества итераций")
+A = np.array([[14, 0], [1, 2]]
+, dtype=float)
+b = np.array([9, 8]
+, dtype=float)
+try:
+    x = minimal_residual_method(A, b)
+    print("Решение системы:", x)
+except ValueError as e:
+    print(str(e))
+

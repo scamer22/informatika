@@ -48,6 +48,7 @@ except ValueError as e:
 
 # 2 exem
 import numpy as np
+import matplotlib.pyplot as plt
 
 def minimal_residual_method(A, b, tol=1e-10, max_iterations=1000):
     if A.shape[0] != A.shape[1] or A.shape[0] != b.shape[0]:
@@ -56,23 +57,42 @@ def minimal_residual_method(A, b, tol=1e-10, max_iterations=1000):
         raise ValueError("Матрица A вырождена и не имеет обратной")
     x = np.zeros_like(b)
     r = b - np.dot(A, x)
+    residuals = []
+    solution = []
     if np.linalg.norm(r) < tol:
-        return x
+        return x, residuals, solution
     for iteration in range(max_iterations):
         Ar = np.dot(A, r)
         alpha = np.dot(r, Ar) / np.dot(Ar, Ar)
         x += alpha * r
         r = b - np.dot(A, x)
+        residuals.append(np.linalg.norm(r))
+        solution.append(x.copy())
         if np.linalg.norm(r) < tol:
-            return x
+            return x, residuals, solution
     raise ValueError("Метод не сходится после максимального количества итераций")
-A = np.array([[14, 0], [1, 2]]
-, dtype=float)
-b = np.array([9, 8]
-, dtype=float)
+
+
+def plot_solution(solution, steps=5):
+    plt.figure(figsize=(10, 6))
+    for i, sol in enumerate(solution[:steps]):
+        plt.plot(sol, label=f'Шаг {i+1}', marker='o')
+    plt.xlabel('Шаг итерации')
+    plt.ylabel('Значение решения')
+    plt.title('График первых 5 шагов решения системы уравнений')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+
+
+A = np.array([[14, 0], [1, 2]], dtype=float)
+b = np.array([9, 8], dtype=float)
+
 try:
-    x = minimal_residual_method(A, b)
+    x, residuals, solution = minimal_residual_method(A, b)
     print("Решение системы:", x)
+    plot_solution(solution)
 except ValueError as e:
     print(str(e))
 
